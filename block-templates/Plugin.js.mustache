@@ -1,0 +1,78 @@
+/**
+ * External dependencies
+ */
+import { getOptionsFromAttribute, triggerEvent } from '@storepress/utils'
+
+export function Plugin (element, options) {
+  // Default Settings
+  const DEFAULTS = {}
+
+  const PRIVATE = {}
+
+  // Collecting settings from html attribute
+  const ATTRIBUTE = 'plugin-settings' //
+
+  const CLASSES = {}
+
+  // Do what you need and return expose fn.
+  const init = () => {
+    this.$element = element
+    this.settings = {
+      ...DEFAULTS, ...options, ...getOptionsFromAttribute(this.$element, ATTRIBUTE), ...PRIVATE,
+    }
+
+    initial()
+
+    addClasses()
+
+    addEvents()
+
+    return expose()
+  }
+
+  const noop = () => () => {}
+
+  const getElementComputedStyle = (cssProperty) => {
+    return window.getComputedStyle(this.$element).getPropertyValue(cssProperty)
+  }
+
+  const getComputedStyle = ($element, property) => {
+    return window.getComputedStyle($element).getPropertyValue(property)
+  }
+
+  const initial = () => {
+	console.log(this.settings)
+    triggerEvent(this.$element, 'afterInit', {})
+  }
+
+  const cssVariableIsTrue = (string) => {
+    return string === 'true' || string === '1' || string === 'yes'
+  }
+  const addClasses = () => {
+
+  }
+
+  const removeClasses = () => {
+
+  }
+
+  const addEvents = () => {
+
+  }
+
+  const removeEvents = () => {
+
+  }
+
+  const reset = () => {
+    removeClasses()
+    removeEvents()
+  }
+
+  // Expose to public.
+  const expose = () => ({
+    removeEvents, reset,
+  })
+
+  return init()
+}

@@ -1,0 +1,20 @@
+{
+	"name": "@storepress/create-plugin-html",
+	"version": "0.0.1",
+	"description": "A template to be used with `@wordpress/create-block` to create a StorePress HTML based JS Extension.",
+	"author": "StorePress",
+	"main": "index.js",
+	"repository": {
+		"type": "git",
+		"url": "git+https://github.com/EmranAhmed/storepress-create-plugin-html.git"
+	},
+	"keywords": ["html", "dom", "javascript", "storepress"],
+	"license": "GPL-2.0-or-later",
+	"bugs": {
+		"url": "https://github.com/EmranAhmed/storepress-create-plugin-html/issues"
+	},
+	"homepage": "https://github.com/EmranAhmed/storepress-create-plugin-html#readme",
+	"publishConfig": {
+		"access": "public"
+	}
+}
