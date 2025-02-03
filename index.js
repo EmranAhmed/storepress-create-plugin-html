@@ -27,7 +27,7 @@ module.exports = {
     folderName: 'src',
     namespace: 'storepress',
     slug: 'plugin',
-    version: '0.1.0',
+    version: '0.0.1',
     title: 'StorePress Plugin',
     description: 'A StorePress Plugin',
     author: 'EmranAhmed',
