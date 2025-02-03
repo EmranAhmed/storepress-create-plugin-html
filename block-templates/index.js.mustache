@@ -1,7 +1,7 @@
 /**
  * External dependencies
  */
-import { createPluginInstance, triggerEvent } from '@storepress/utils'
+import { createPluginInstance, triggerEvent, getPluginInstance } from '@storepress/utils'
 
 /**
  * Internal dependencies
@@ -10,55 +10,80 @@ import { Plugin } from './Plugin'
 
 export default function StorePressPlugin () {
   const StorePressPlugin = {
+    createInstance (element, options) {
+      return createPluginInstance(element, options, Plugin)
+    },
+
     getInstance (element) {
-      return createPluginInstance(element, false, Plugin)
+      return getPluginInstance(element)
     },
 
-    initWith ($selector = '[data-plugin-settings]') {
-      for (const { element, unregister } of this.getInstance($selector)) {
-        element.addEventListener('destroy', unregister)
+    init ($selector, options) {
+      for (const { element, reset } of this.createInstance($selector, options)) {
+        element.addEventListener('destroy', reset)
       }
     },
 
-    init () {
-      for (const { element, unregister } of this.getInstance('[data-plugin-settings]')) {
-        element.addEventListener('destroy', unregister)
-      }
-    },
-
-    destroy () {
-      for (const { destroy } of this.getInstance('[data-plugin-settings]')) {
-        destroy()
-      }
-    },
-
-    destroyWith ($selector = '[data-plugin-settings]') {
+    destroy ($selector) {
       for (const { destroy } of this.getInstance($selector)) {
         destroy()
       }
     },
+
+    reload ($selector, options) {
+      this.destroy($selector)
+      this.init($selector, options)
+    },
   }
 
-  document.addEventListener('storepress_plugin_init', () => {
-    StorePressPlugin.init()
-  })
+  document.addEventListener('storepress_plugin_init', (event) => {
 
-  document.addEventListener('storepress_plugin_destroy', () => {
-    StorePressPlugin.destroy()
-  })
+    const defaultSettings = {}
+    const settings = { ...defaultSettings, ...event.detail?.settings }
+    const element = event.detail?.element
 
-  document.addEventListener('storepress_plugin_init_with', (event) => {
-    const selector = event.detail?.element
-    StorePressPlugin.initWith(selector)
-  })
+    if (Array.isArray(element)) {
+      for (const el of element) {
+        StorePressPlugin.init(el, settings)
+      }
+    } else {
+      StorePressPlugin.init(element, settings)
+    }
+  }, { passive: true })
 
-  document.addEventListener('storepress_plugin_destroy_with', (event) => {
-    const selector = event.detail?.element
-    StorePressPlugin.destroyWith(selector)
-  })
+  document.addEventListener('storepress_plugin_destroy', (event) => {
+
+    const element = event.detail?.element
+
+    if (Array.isArray(element)) {
+      for (const el of element) {
+        StorePressPlugin.destroy(el)
+      }
+    } else {
+      StorePressPlugin.destroy(element)
+    }
+
+  }, { passive: true })
+
+  document.addEventListener('storepress_plugin_reload', (event) => {
+    const defaultSettings = {}
+    const settings = { ...defaultSettings, ...event.detail?.settings }
+    const element = event.detail?.element
+
+    if (Array.isArray(element)) {
+      for (const el of element) {
+        StorePressPlugin.reload(el, settings)
+      }
+    } else {
+      StorePressPlugin.reload(element, settings)
+    }
+  }, { passive: true })
 }
 
 document.addEventListener('DOMContentLoaded', () => {
   StorePressPlugin()
-  triggerEvent(document, 'storepress_plugin_init')
+  triggerEvent(document, 'storepress_plugin_init', {
+    element: ['[data-plugin-settings]'],
+    settings: {},
+  })
 })

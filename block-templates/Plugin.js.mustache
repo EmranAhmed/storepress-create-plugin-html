@@ -10,24 +10,10 @@ export function Plugin (element, options) {
   const PRIVATE = {}
 
   // Collecting settings from html attribute
-  const ATTRIBUTE = 'plugin-settings' //
+  const ATTRIBUTE = 'plugin-settings' // html data-plugin-settings
 
-  const CLASSES = {}
-
-  // Do what you need and return expose fn.
-  const init = () => {
-    this.$element = element
-    this.settings = {
-      ...DEFAULTS, ...options, ...getOptionsFromAttribute(this.$element, ATTRIBUTE), ...PRIVATE,
-    }
-
-    initial()
-
-    addClasses()
-
-    addEvents()
-
-    return expose()
+  const CLASSES = {
+    NEW: 'new-class',
   }
 
   const noop = () => () => {}
@@ -41,27 +27,31 @@ export function Plugin (element, options) {
   }
 
   const initial = () => {
-	console.log(this.settings)
+    console.log(this.settings)
     triggerEvent(this.$element, 'afterInit', {})
   }
 
-  const cssVariableIsTrue = (string) => {
-    return string === 'true' || string === '1' || string === 'yes'
-  }
   const addClasses = () => {
-
-  }
-
-  const removeClasses = () => {
-
+    this.$element.classList.add(CLASSES.NEW)
   }
 
   const addEvents = () => {
+
+    this.$element.addEventListener('click', (e) => {
+
+      console.log(e.target.getAttribute('class'))
+
+    }, { signal: this.signal, passive: true })
 
   }
 
   const removeEvents = () => {
 
+    this.controller.abort('Reset')
+  }
+
+  const removeClasses = () => {
+    this.$element.classList.remove(CLASSES.NEW)
   }
 
   const reset = () => {
@@ -69,10 +59,29 @@ export function Plugin (element, options) {
     removeEvents()
   }
 
-  // Expose to public.
+  // Expose reset to public.
   const expose = () => ({
-    removeEvents, reset,
+    reset,
   })
+
+// Do what you need and return expose fn.
+  const init = () => {
+    this.$element = element
+    this.settings = {
+      ...DEFAULTS, ...options, ...getOptionsFromAttribute(this.$element, ATTRIBUTE), ...PRIVATE,
+    }
+
+    this.controller = new AbortController()
+    this.signal = this.controller.signal
+
+    initial()
+
+    addClasses()
+
+    addEvents()
+
+    return expose()
+  }
 
   return init()
 }
