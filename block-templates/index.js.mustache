@@ -6,12 +6,12 @@ import { createPluginInstance, triggerEvent, getPluginInstance } from '@storepre
 /**
  * Internal dependencies
  */
-import { Plugin } from './Plugin'
+import { Plugin as Instance } from './Plugin'
 
-export default function StorePressPlugin () {
-  const StorePressPlugin = {
+export default function {{pascaleSlug}}Plugin () {
+  const Plugin = {
     createInstance (element, options) {
-      return createPluginInstance(element, options, Plugin)
+      return createPluginInstance(element, options, Instance)
     },
 
     getInstance (element) {
@@ -44,10 +44,10 @@ export default function StorePressPlugin () {
 
     if (Array.isArray(element)) {
       for (const el of element) {
-        StorePressPlugin.init(el, settings)
+        Plugin.init(el, settings)
       }
     } else {
-      StorePressPlugin.init(element, settings)
+      Plugin.init(element, settings)
     }
   }, { passive: true })
 
@@ -57,10 +57,10 @@ export default function StorePressPlugin () {
 
     if (Array.isArray(element)) {
       for (const el of element) {
-        StorePressPlugin.destroy(el)
+        Plugin.destroy(el)
       }
     } else {
-      StorePressPlugin.destroy(element)
+      Plugin.destroy(element)
     }
 
   }, { passive: true })
@@ -72,16 +72,16 @@ export default function StorePressPlugin () {
 
     if (Array.isArray(element)) {
       for (const el of element) {
-        StorePressPlugin.reload(el, settings)
+        Plugin.reload(el, settings)
       }
     } else {
-      StorePressPlugin.reload(element, settings)
+      Plugin.reload(element, settings)
     }
   }, { passive: true })
 }
 
 document.addEventListener('DOMContentLoaded', () => {
-  StorePressPlugin()
+  {{pascaleSlug}}Plugin()
   triggerEvent(document, 'storepress_plugin_init', {
     element: ['[data-plugin-settings]'],
     settings: {},

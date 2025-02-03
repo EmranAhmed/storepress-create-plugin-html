@@ -127,6 +127,7 @@ module.exports = {
       const kebabNamespace = kebabCase(view.namespace)
       const constantSlug = constantCase(view.slug) // TWO_WORDS
       const kebabSlug = kebabCase(view.slug) // two-words
+      const pascaleSlug = pascalCase(pascalStorePress(view.slug)) // 'TwoWords'
       return {
         ...view,
         todayDate: todayDate,
@@ -136,6 +137,7 @@ module.exports = {
 
         constantSlug: constantSlug,
         kebabSlug: kebabSlug,
+        pascaleSlug: pascaleSlug,
       }
     },
   },
