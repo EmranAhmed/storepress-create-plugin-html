@@ -84,6 +84,7 @@ module.exports = {
       'eslint-plugin-you-dont-need-lodash-underscore',
       'husky',
       'lint-staged',
+      "prettier@npm:wp-prettier@latest",
       'fs-extra',
       'webpack-remove-empty-scripts',
       'eslint-plugin-prettier',
@@ -96,20 +97,6 @@ module.exports = {
       'sideEffects': [
         'src/**',
       ],
-      'lint-staged': {
-        './src/**/*.scss': [
-          'npm run lint:css',
-        ],
-        './src/**/*.{js,ts,tsx}': [
-          'npm run lint:js',
-        ],
-        './*.md': [
-          'npm run lint:md:docs',
-        ],
-        './package.json': [
-          'npm run lint:pkg-json',
-        ],
-      },
       'main': 'build/index.js',
       'module': 'src/index.js',
       'files': [
@@ -138,6 +125,11 @@ module.exports = {
         constantSlug: constantSlug,
         kebabSlug: kebabSlug,
         pascaleSlug: pascaleSlug,
+        GITHUB_REPOSITORY_NAME: '${{ github.event.repository.name }}',
+        GITHUB_RELEASE_NAME: '${{ env.RELEASE_NAME }}',
+        GITHUB_RELEASE_TAG: '${{ env.RELEASE_TAG }}',
+        GITHUB_TOKEN: '${{ secrets.GITHUB_TOKEN }}',
+        GITHUB_PAGE_URL: '${{ steps.deployment.outputs.page_url }}',
       }
     },
   },
