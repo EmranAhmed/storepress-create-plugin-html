@@ -14,6 +14,7 @@ Navigate to the newly created folder and get started.
 
 ```
 cd my-extension-name
+npm i prettier@npm:wp-prettier@latest --save-dev
 npm i                    # Install dependencies
 npm run build            # Build the javascript
 npx @wp-now/wp-now start # Start Wordpress environment

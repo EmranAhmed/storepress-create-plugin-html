@@ -18,8 +18,8 @@ const scriptConfig = {
 	...defaultJSConfig,
 	entry: {
 		[`plugin`]: [
-			getFile('style.scss'),
-			getFile('index.js'),
+			getRootFile('style.scss'),
+			getRootFile('script.js'),
         ],
         'storepress-utils': {
 			import: '@storepress/utils/build-module/index.js',

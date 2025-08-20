@@ -84,7 +84,7 @@ module.exports = {
       'eslint-plugin-you-dont-need-lodash-underscore',
       'husky',
       'lint-staged',
-      "prettier@npm:wp-prettier@latest",
+      "prettier@npm:wp-prettier",
       'fs-extra',
       'webpack-remove-empty-scripts',
       'eslint-plugin-prettier',
@@ -118,6 +118,7 @@ module.exports = {
       const pascaleSlug = pascalCase(pascalStorePress(view.slug)) // 'TwoWords'
       return {
         ...view,
+        name: `@${kebabNamespace}/${kebabSlug}`,
         todayDate: todayDate,
         constantNamespace: constantNamespace,
         kebabNamespace: kebabNamespace,
