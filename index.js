@@ -100,12 +100,13 @@ module.exports = {
       'main': 'build/index.js',
       'module': 'src/index.js',
       'files': [
-        'build/**',
         'src/**',
       ],
-      'bin': {
-        'package': './tools/package.js',
-      },
+      'zip': [
+        'build/**',
+        'index.html',
+        'global-style.css',
+      ],
     },
     transformer: (view) => {
       const todayDate = new Date().toJSON().slice(0, 10)

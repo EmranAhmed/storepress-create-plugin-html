@@ -86,6 +86,10 @@ function getFile( fileName ) {
 	return fromProjectRoot( getProjectSourcePath() + sep + fileName );
 }
 
+function getRootFile( fileName ) {
+	return fromProjectRoot( fileName );
+}
+
 function getWebPackAlias() {
 	return {
 		// '@utils': getFile('utils/Plugin'), // Add @utils on .eslintrc.js -> 'import/core-modules'
@@ -97,6 +101,7 @@ function getWebPackAlias() {
 
 module.exports = {
 	getFile,
+	getRootFile,
 	getWebPackAlias,
 	requestToExternal,
 	requestToHandle,

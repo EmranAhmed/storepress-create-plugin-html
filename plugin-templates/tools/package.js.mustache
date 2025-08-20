@@ -27,12 +27,12 @@ const isZip = hasArgInCLI('--zip');
 
 let files = [];
 
-if (hasPackageProp('files')) {
+if (hasPackageProp('zip')) {
 	stdout.write(
 		'Using the `files` field from `package.json` to detect files:\n\n'
 	);
 
-	files = glob(getPackageProp('files'), {
+	files = glob(getPackageProp('zip'), {
 		caseSensitiveMatch: false,
 	});
 } else {

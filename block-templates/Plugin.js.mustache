@@ -46,7 +46,6 @@ export function Plugin (element, options) {
   }
 
   const removeEvents = () => {
-
     this.controller.abort('Reset')
   }
 
@@ -68,7 +67,10 @@ export function Plugin (element, options) {
   const init = () => {
     this.$element = element
     this.settings = {
-      ...DEFAULTS, ...options, ...getOptionsFromAttribute(this.$element, ATTRIBUTE), ...PRIVATE,
+      ...DEFAULTS,
+      ...options,
+      ...getOptionsFromAttribute(this.$element, ATTRIBUTE),
+      ...PRIVATE,
     }
 
     this.controller = new AbortController()
