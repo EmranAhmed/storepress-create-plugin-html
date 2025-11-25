@@ -36,9 +36,9 @@ module.exports = {
     attributes: {},
     license: 'GPL-2.0-or-later',
     customScripts: {
-      'postinstall': 'git init -q && rm -rf ./.husky && npx husky init && echo "npx lint-staged" > .husky/pre-commit',
+      'postinstall': 'git init -q && rimraf .husky && npx husky init && echo "npx lint-staged" > .husky/pre-commit',
 
-      'prebuild': 'rm -rf ./build',
+      'prebuild': 'rimraf build',
       'build': 'npm run start -- --no-watch && wp-scripts build --webpack-copy-php --experimental-modules',
 
       'check-engines': 'wp-scripts check-engines',
@@ -62,7 +62,7 @@ module.exports = {
 
       'packages-update': 'wp-scripts packages-update',
 
-      'prepackage': 'rm -rf ./${npm_package_name}.zip && npm run build',
+      'prepackage': 'rimraf ${npm_package_name}.zip && npm run build',
       'package': './tools/package.js',
 
       'plugin-zip': 'npm run package -- --zip',
@@ -70,7 +70,7 @@ module.exports = {
       'test:e2e': 'wp-scripts test-e2e',
       'test:unit': 'wp-scripts test-unit-js',
 
-      'start': 'rm -rf ./build && wp-scripts start --webpack-copy-php --experimental-modules',
+      'start': 'rimraf build && wp-scripts start --webpack-copy-php --experimental-modules',
     },
     npmDependencies: [
       '@storepress/utils',
@@ -87,8 +87,9 @@ module.exports = {
       "prettier@npm:wp-prettier",
       'fs-extra',
       'webpack-remove-empty-scripts',
-      'eslint-plugin-prettier',
-      'eslint-formatter-pretty@5',
+      'eslint-plugin-prettier@5.2.1',
+      'eslint-formatter-pretty',
+      'rimraf',
     ],
     customPackageJSON: {
       'publishConfig': {
