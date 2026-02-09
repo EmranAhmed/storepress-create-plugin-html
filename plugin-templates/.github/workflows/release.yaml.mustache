@@ -25,6 +25,7 @@ jobs:
   # - Make Zip
   # - Get Release Version
   # - Get Release Filename
+  # - Get Changelog
   # - Make Release
 
   build:
@@ -53,11 +54,19 @@ jobs:
         run: |
           echo "RELEASE_NAME=$(node -p -e "require('./package.json').name")" >> $GITHUB_ENV
 
+      - name: "Get Changelog"
+        id: changelog
+        run: |
+            echo "changelog<<EOF" >> $GITHUB_OUTPUT
+            node ./tools/changelog.js >> $GITHUB_OUTPUT
+            echo "EOF" >> $GITHUB_OUTPUT
+
       - name: "Make Release"
         uses: softprops/action-gh-release@v2
         with:
           files: ./{{ GITHUB_RELEASE_NAME }}.zip
           make_latest: true
           name: Release - v{{ GITHUB_RELEASE_TAG }}
+          body: {{ GITHUB_CHANGELOG_CONTENT }}
         env:
           GITHUB_TOKEN: {{ GITHUB_TOKEN }}

@@ -6,6 +6,23 @@
 	<title>{{title}}</title>
 	<link rel="stylesheet" href="./global-style.css" />
 	<link rel="stylesheet" href="./build/style-plugin.css" />
+
+    <script type="importmap">
+        {
+          "imports":
+              {
+                  "@storepress/utils":"./build/storepress-utils-module.js"
+                  "@huggingface/transformers":"https://esm.sh/@huggingface/transformers"
+                  "@babycommando/entity-db":"https://esm.sh/@babycommando/entity-db"
+              }
+        }
+    </script>
+
+    <link rel="modulepreload" href="./build/storepress-utils-module.js" />
+    <link rel="modulepreload" href="https://esm.sh/@huggingface/transformers" />
+    <link rel="modulepreload" href="https://esm.sh/@babycommando/entity-db" />
+
+    <script type="module" src="./custom-module.js"></script>
 </head>
 
 <body>
