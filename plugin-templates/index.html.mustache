@@ -3,35 +3,58 @@
 <head>
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<title>{{title}}</title>
-	<link rel="stylesheet" href="./global-style.css" />
-	<link rel="stylesheet" href="./build/style-plugin.css" />
+	<title>Standalone WordPress Package Usages</title>
 
-    <script type="importmap">
-        {
-          "imports":
-              {
-                  "@storepress/utils":"./build/storepress-utils-module.js"
-                  "@huggingface/transformers":"https://esm.sh/@huggingface/transformers"
-                  "@babycommando/entity-db":"https://esm.sh/@babycommando/entity-db"
-              }
-        }
-    </script>
+	<script type="importmap">
+		{
+			"imports": {
+				"@wordpress/interactivity": "./build/externals/modules/wp-interactivity.js"
+			}
+		}
+	</script>
 
-    <link rel="modulepreload" href="./build/storepress-utils-module.js" />
-    <link rel="modulepreload" href="https://esm.sh/@huggingface/transformers" />
-    <link rel="modulepreload" href="https://esm.sh/@babycommando/entity-db" />
-
-    <script type="module" src="./custom-module.js"></script>
+	<link rel="modulepreload" href="./build/externals/modules/wp-interactivity.js" fetchpriority="low"/>
 </head>
 
 <body>
 
-<div class="wrapper">
-	<div data-{{kebabSlug}}="{'greet': 'Hello'}">Hello ( Check Browser Console )</div>
+<h1>Example of WordPress Package Usage as Standalone</h1>
+<div id="wrapper"></div>
+
+
+<div
+	data-wp-interactive="my-app"
+	data-wp-context='{ "isOpen": false }'
+>
+	<h2>Interactive Counter: <span data-wp-text="state.count"></span></h2>
+	<button data-wp-on--click="actions.increment">+</button>
+	<button data-wp-on--click="actions.decrement">−</button>
+
+	<hr>
+
+	<button data-wp-on--click="actions.toggle">
+		<span data-wp-text="state.toggleText"></span>
+	</button>
+	<p data-wp-bind--hidden="!context.isOpen">
+		Hello from the Interactivity API! 🎉
+	</p>
 </div>
 
+
+<h2>StorePress Example:</h2>
+
+<div data-storepress-plugin="{'greet': 'Hello'}">Hello ( Check Browser Console )</div>
+
+<p><a href="./index-module.html">Check using storepress plugin as module</a></p>
+
+<script src="./build/externals/scripts/react-jsx-runtime.js"></script>
+<script src="./build/externals/scripts/wp-element.js"></script>
+<script src="./build/react-example.js"></script>
+
 <script src="./build/storepress-utils.js"></script>
-<script src="./build/plugin.js"></script>
+<script src="./build/script-example.js"></script>
+
+<script type="module" src="./build/interactive-example.js"></script>
+
 </body>
 </html>

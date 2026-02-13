@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Standalone WordPress Package Usages</title>
+
+	<script type="importmap">
+		{
+			"imports": {
+				"@storepress/utils": "./build/storepress-utils-module.js"
+			}
+		}
+	</script>
+
+	<link rel="modulepreload" href="./build/storepress-utils-module.js" fetchpriority="low"/>
+</head>
+
+<body>
+
+<h2>StorePress Example as Module:</h2>
+
+<div data-storepress-plugin="{'greet': 'Hello'}">Hello ( Check Browser Console )</div>
+
+<p><a href="./index.html">Check using storepress plugin as script</a></p>
+
+<script type="module" src="./build/module-example.js"></script>
+
+</body>
+</html>

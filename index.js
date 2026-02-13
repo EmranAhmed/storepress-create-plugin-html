@@ -38,8 +38,8 @@ module.exports = {
         customScripts      : {
             'postinstall' : 'git init -q && rimraf .husky && npx husky init && echo "npx lint-staged" > .husky/pre-commit',
 
-            'prebuild' : 'rimraf build',
-            'build'    : 'npm run start -- --no-watch && wp-scripts build --webpack-copy-php --experimental-modules',
+            'prebuild' : 'rimraf build && npm run external:build',
+            'build'    : 'wp-scripts build --webpack-copy-php --experimental-modules',
 
             'check-engines'  : 'wp-scripts check-engines',
             'check-licenses' : 'wp-scripts check-licenses',
@@ -73,10 +73,16 @@ module.exports = {
             'test:e2e'  : 'wp-scripts test-e2e',
             'test:unit' : 'wp-scripts test-unit-js',
 
-            'start' : 'rimraf build && wp-scripts start --webpack-copy-php --experimental-modules',
+            "external:dev": "wp-scripts start --no-watch --config tools/webpack.config.externals.js --experimental-modules --webpack-no-externals",
+            "external:build": "wp-scripts build --config tools/webpack.config.externals.js --experimental-modules --webpack-no-externals",
+
+            'prestart' : 'rimraf build && npm run external:dev',
+            'start' : 'wp-scripts start --webpack-copy-php --experimental-modules',
         },
         npmDependencies    : [
             '@storepress/utils',
+            '@wordpress/element',
+            '@wordpress/interactivity',
         ],
         npmDevDependencies : [
             '@wordpress/scripts',
@@ -109,7 +115,7 @@ module.exports = {
             'zip'           : [
                 'build/**',
                 'index.html',
-                'global-style.css',
+                'index-module.html',
             ],
         },
         transformer        : (view) => {

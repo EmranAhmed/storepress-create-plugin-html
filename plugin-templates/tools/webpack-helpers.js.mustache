@@ -19,22 +19,17 @@ const scriptHandleMap = {
 };
 
 const externalModulesMap = {
-          //  1. static import.
-          // '@wordpress/a11y': 'import @wordpress/a11y',
-          // '@storepress/utils': 'import @storepress/utils',
 
-          // view.js <script type="module" src="./view.js"></script>
-          // import { ... } from '@storepress/utils';
+    //	'module @wordpress/a11y'  →  import * as X from '@wordpress/a11y'
+    //  'import @wordpress/a11y'  →  module.exports = import('@wordpress/a11y')
 
-          // 2. dynamic import.
-          // '@storepress/utils': 'module @storepress/utils',
+    '@storepress/utils' : 'module @storepress/utils',
 
-          // view.js <script type="module" src="./view.js"></script>
-          // import('@storepress/utils').then(()=>{});
-          // OR
-          // const config = await fetch('../config.json').then(response => response.json());
-          // const driver = await import(`@storepress/utils`);
-          // driver.connect();
+    // import('@storepress/utils').then(()=>{});
+    // OR
+    // const config = await fetch('../config.json').then(response => response.json());
+    // const driver = await import(`@storepress/utils`);
+    // driver.connect();
 
     /*
           ```html
@@ -51,29 +46,7 @@ const externalModulesMap = {
               <link rel="modulepreload" href="http://example.com/wp-includes/js/dist/script-modules/interactivity/index.min.js" fetchpriority="low" />
               <link rel="modulepreload" href="./build/storepress-utils-module.js" fetchpriority="low" />
               ```*/
-
-          // in view.js
-          // ```js
-          // "import" prefix — static import (top-level, resolved at load time)
-          // import { store, getContext } from '@wordpress/a11y';
-          // ```
-
-          // dynamic import.
-          // @see: https://github.com/WordPress/gutenberg/blob/trunk/packages/block-library/src/query/view.js#L40
-          // ```js
-          //  import('@wordpress/interactivity-router').then({});
-          // ```
-          // '@wordpress/interactivity-router': 'import @wordpress/interactivity-router',
-
-          // view.js
-
-          // "import" prefix — static import (top-level, resolved at load time)
-          //  import { store, getContext } from '@wordpress/interactivity';
-
-          // "module" prefix — dynamic import (lazy, resolved at runtime)
-          // const loadRouter = () => import('@wordpress/interactivity-router');
-      }
-;
+};
 
 /**
  * Default request to global transformation
@@ -145,7 +118,7 @@ function getWebPackAlias() {
         //'@storepress/icons': getFile('packages/icons'),
         //'@storepress/utils': getFile('packages/utils'),
         //'@storepress/components': getFile('packages/components'),
-        '@{{kebabNamespace}}/{{kebabSlug}}' : getFile('index.js'),
+        '@storepress/html-plugin' : getFile('storepress/index.js'),
     };
 }
 

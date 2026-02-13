@@ -1,0 +1,19 @@
+import { store, getContext } from '@wordpress/interactivity';
+
+const { state } = store('my-app', {
+	state: {
+		count: 0,
+		get toggleText() {
+			const ctx = getContext();
+			return ctx.isOpen ? 'Hide' : 'Show';
+		},
+	},
+	actions: {
+		increment() { state.count++; },
+		decrement() { state.count--; },
+		toggle() {
+			const ctx = getContext();
+			ctx.isOpen = !ctx.isOpen;
+		},
+	},
+});

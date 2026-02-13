@@ -13,10 +13,9 @@ npx -y @wordpress/create-block@latest --template @storepress/create-plugin-html 
 Navigate to the newly created folder and get started.
 
 ```
-npm i                        # Install dependencies
-npm run packages-update      # Update package dependency
-npm run build                # Build the javascript
-npx -y http-server           # Start Server
+npm i && npm run packages-update   # Install dependencies and Update package dependency
+npm run build                      # Build the javascript
+npx -y http-server                 # Start Server
 ```
 
 ## Development

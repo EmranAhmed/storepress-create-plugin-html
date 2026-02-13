@@ -1,0 +1,20 @@
+/**
+ * External dependencies
+ */
+import { createStorePressPlugin } from '@storepress/utils';
+
+/**
+ * Internal dependencies
+ */
+import { Plugin } from './Plugin';
+
+const HtmlPlugin = createStorePressPlugin({
+	selector  : '[data-storepress-plugin]',
+	options   : {},
+	plugin    : Plugin,
+	namespace : 'html',
+});
+
+HtmlPlugin.setup();
+
+export default HtmlPlugin;

@@ -1,0 +1,38 @@
+import { createRoot, useState, StrictMode } from '@wordpress/element';
+
+const App = () => {
+	const [count, setCount]         = useState(0);
+	const [isVisible, setIsVisible] = useState(false);
+
+	const toggleVisible = () => setIsVisible(!isVisible);
+
+	const toggleText = isVisible ? 'Hide' : 'Show';
+
+	const toggleStyle = {
+		display : isVisible ? 'block' : 'none'
+	}
+
+	return (
+		<div>
+			<h2>React Counter: {count}</h2>
+
+			<button onClick={() => setCount(count + 1)}>+</button>
+
+			<button onClick={() => setCount(count - 1)}>-</button>
+
+			<hr/>
+
+			<button onClick={toggleVisible}> {toggleText} </button>
+
+			<p style={toggleStyle}>
+				Hello from the React API! 🎉
+			</p>
+		</div>
+	);
+};
+
+const container = document.getElementById('wrapper');
+if (container) {
+	const root = createRoot(container);
+	root.render(<StrictMode><App/></StrictMode>);
+}
