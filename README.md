@@ -7,7 +7,7 @@ This is a template for [`@wordpress/create-block`](https://developer.wordpress.o
 This template can be used by running the following command:
 
 ```bash
-npx -y @wordpress/create-block@latest --template @storepress/create-plugin-html --no-wp-scripts my-html-extension-name && cd "$_"
+npx -y @wordpress/create-block@latest --template @storepress/create-plugin-html my-html-extension-name && cd "$_"
 ```
 
 Navigate to the newly created folder and get started.
@@ -23,7 +23,7 @@ npx -y http-server                 # Start Server
 For development on this tool itself, you can also install from a local directory.
 
 ```bash
-npx -y @wordpress/create-block@latest --template ./path/to/storepress/create-plugin-html --no-wp-scripts my-html-extension-name && cd "$_"
+npx -y @wordpress/create-block@latest --template ./create-plugin-html my-html-extension-name && cd "$_"
 ```
 
 ### Add Tests
