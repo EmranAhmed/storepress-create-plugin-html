@@ -1,6 +1,9 @@
+/**
+* WordPress dependencies
+*/
 import { store, getContext } from '@wordpress/interactivity';
 
-const { state } = store('my-app', {
+const { state } = store('{{slug}}', {
 	state: {
 		count: 0,
 		get toggleText() {

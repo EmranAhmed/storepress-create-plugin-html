@@ -24,6 +24,7 @@ function pascalCase(input) {
 
 module.exports = {
     defaultValues       : {
+        wpScripts: false,
         folderName         : 'src',
         namespace          : 'storepress',
         slug               : 'plugin',
