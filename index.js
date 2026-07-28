@@ -207,6 +207,7 @@ module.exports = {
                 GITHUB_TOKEN             : '${{ secrets.GITHUB_TOKEN }}',
                 GITHUB_PAGE_URL          : '${{ steps.deployment.outputs.page_url }}',
                 GITHUB_CHANGELOG_CONTENT : "${{ steps.changelog.outputs.changelog }}",
+                PLAIN_PACKAGE_NAME       : "${{ env.PLAIN_PACKAGE_NAME }}",
             }
         },
     },

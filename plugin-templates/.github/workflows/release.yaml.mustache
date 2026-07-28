@@ -33,7 +33,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: "Checks out the repository"
-        uses: actions/checkout@v4
+        uses: actions/checkout@v6
 
       - name: "Setup and Install Node.js"
         uses: actions/setup-node@v6
@@ -47,12 +47,10 @@ jobs:
         run: npm run plugin-zip --if-present
 
       - name: "Get Release Version"
-        run: |
-          echo "RELEASE_TAG=$(node -p -e "require('./package.json').version")" >> $GITHUB_ENV
+        run: echo "RELEASE_TAG=$(node -p -e "require('./package.json').version")" >> $GITHUB_ENV
 
       - name: "Get Release Filename"
-        run: |
-          echo "RELEASE_NAME=$(node -p -e "require('./package.json').name")" >> $GITHUB_ENV
+        run: echo "RELEASE_NAME=$(node -p -e "require('./package.json').name.replace(/^@/, '').replace('/', '-').toLowerCase()")" >> $GITHUB_ENV
 
       - name: "Get Changelog"
         id: changelog
@@ -62,9 +60,10 @@ jobs:
             echo "EOF" >> $GITHUB_OUTPUT
 
       - name: "Make Release"
-        uses: softprops/action-gh-release@v2
+        uses: softprops/action-gh-release@v3
         with:
           files: ./{{ GITHUB_RELEASE_NAME }}.zip
+          tag_name: {{ GITHUB_RELEASE_TAG }}
           make_latest: true
           name: Release - v{{ GITHUB_RELEASE_TAG }}
           body: {{ GITHUB_CHANGELOG_CONTENT }}
