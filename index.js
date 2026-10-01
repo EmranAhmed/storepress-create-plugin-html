@@ -96,7 +96,7 @@ module.exports = {
         attributes         : {},
         license            : 'GPL-2.0-or-later',
         customScripts      : {
-            'postinstall' : 'npm run packages-install:all && git init -q && rimraf .husky && npx husky init && echo "npx lint-staged" > .husky/pre-commit',
+            'postinstall' : 'npm run packages-install:all && git init -q && rimraf .husky && npx husky && echo "npx lint-staged" > .husky/pre-commit',
 
             'prebuild' : 'rimraf build && npm run external:build',
             'build'    : 'wp-scripts build --webpack-copy-php --experimental-modules',

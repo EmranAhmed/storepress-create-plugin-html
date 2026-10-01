@@ -37,8 +37,11 @@ jobs:
         with:
           node-version: '24.x'
 
-      - name: "Install and Build"
-        run: npm install && npm run package --if-present
+      - name: "NPM Install"
+        run: npm ci
+
+      - name: "Make Package"
+        run: npm run package --if-present
 
       - name: "Make Plain Package name"
         run: echo "PLAIN_PACKAGE_NAME=$(node -p -e "require('./package.json').name.replace(/^@/, '').replace('/', '-').toLowerCase()")" >> $GITHUB_ENV

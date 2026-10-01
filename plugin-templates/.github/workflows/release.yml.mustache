@@ -41,7 +41,7 @@ jobs:
           node-version: '24.x'
 
       - name: "NPM Install"
-        run: npm install
+        run: npm ci
 
       - name: "Make Zip"
         run: npm run plugin-zip --if-present
